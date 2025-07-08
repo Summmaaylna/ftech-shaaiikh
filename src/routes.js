@@ -15,8 +15,8 @@ export const routes = {
     title: 'Services'
   },
   contact: {
-    path: '/contact',
-    name: 'Contact',
+    path: '/contact-us',
+    name: 'Contact Us',
     title: 'Contact Us'
   },
   elements: {
@@ -87,10 +87,26 @@ export const routes = {
     name: 'Turbo360',
     title: 'Turbo360 Management Platform'
   },
-  erosource: {
-    path: '/services/erosource',
-    name: 'Erosource',
-    title: 'Erosource Enterprise Solutions'
+  eresource: {
+    path: '/services/eresource',
+    name: 'Eresource',
+    title: 'Eresource Enterprise Solutions'
+  },
+  // Legal Pages
+  privacyPolicy: {
+    path: '/privacy-policy',
+    name: 'Privacy Policy',
+    title: 'Privacy Policy'
+  },
+  termsOfService: {
+    path: '/terms-of-service',
+    name: 'Terms of Service',
+    title: 'Terms of Service'
+  },
+  cookiesPolicy: {
+    path: '/cookies-policy',
+    name: 'Cookies Policy',
+    title: 'Cookies Policy'
   }
 };
 
