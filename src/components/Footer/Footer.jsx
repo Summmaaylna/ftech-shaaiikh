@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
 import "../../styles/components/Footer/Footer.scss"
 import footerLogo from '../../assets/images/FTebtech-logo/FTEB-logo-white.png';
 import { Icon } from '../Icons/IconSystem'
@@ -90,7 +89,7 @@ const Footer = () => {
       <footer className="modern-footer">
         {/* Main Footer Content */}
         <div className="footer-main">
-          <Container>
+          <div className="container">
             <div className="footer-grid">
               
               {/* Company Info */}
@@ -191,12 +190,12 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-          </Container>
+          </div>
         </div>
 
         {/* Footer Bottom */}
         <div className="footer-bottom">
-          <Container>
+          <div className="container">
             <div className="footer-bottom-content">
               <div className="copyright">
                 <p>&copy; {currentYear} FTEB Technology Solutions. All rights reserved.</p>
@@ -220,7 +219,7 @@ const Footer = () => {
                 </button>
               </div>
             </div>
-          </Container>
+          </div>
         </div>
 
         {/* Decorative Elements */}

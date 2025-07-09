@@ -1,5 +1,4 @@
 import "../../styles/components/CaseStudies/CaseStudies.scss"
-import { Container } from 'react-bootstrap';
 import { Icon } from '../Icons/IconSystem'
 
 const CaseStudies = () => {
@@ -38,7 +37,7 @@ const CaseStudies = () => {
 
   return (
     <section className="section">
-      <Container>
+      <div className="container">
         <div className="section-titles">
           <h6 className="headingser">IT SERVICES</h6>
           <h2 className="headstwo">What We Offer</h2>
@@ -60,7 +59,7 @@ const CaseStudies = () => {
             </div>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   )
 }

@@ -1,5 +1,4 @@
 import "../../styles/components/Features/Features.scss"
-import { Container } from 'react-bootstrap';
 import { Icon } from '../Icons/IconSystem'
 import featureImage from "../../assets/images/computer-scientists-data-center-managing-maintaining-databases (1).jpg"
 
@@ -28,7 +27,7 @@ const Features = () => {
   return (
     <div className="features">
       <section className="features-section bg-light">
-        <Container>
+        <div className="container">
           <div className="features-wrapper">
             <div className="features-content" data-aos="fade-right">
               <h6>WHY CHOOSE US</h6>
@@ -79,7 +78,7 @@ const Features = () => {
               </div>
             </div>
           </div>
-        </Container>
+        </div>
       </section>
     </div>
   )

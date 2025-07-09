@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import PageWrapper from '../../components/PageWrapper/PageWrapper';
 import { Icon } from '../../components/Icons/IconSystem';
 import '../../styles/pages/Legal/LegalPages.scss';
@@ -288,7 +287,7 @@ const CookiesPolicy = () => {
       description="Learn about how FTEB Technology uses cookies and tracking technologies"
     >
       <div className="legal-page">
-        <Container>
+        <div className="container">
           
           {/* Introduction */}
           <div className="legal-intro">
@@ -483,7 +482,7 @@ const CookiesPolicy = () => {
             </div>
           </div>
 
-        </Container>
+        </div>
       </div>
     </PageWrapper>
   );

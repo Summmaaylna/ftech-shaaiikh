@@ -1,5 +1,4 @@
 import "../../styles/components/About/About.scss"
-import { Container } from 'react-bootstrap';
 import aboutImage from "../../assets/images/about-us.jpg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faAward, faUsers, faLightbulb } from '@fortawesome/free-solid-svg-icons'
@@ -26,7 +25,7 @@ const About = () => {
 
   return (
     <section className="about section bg-light">
-      <Container>
+      <div className="container">
         <div className="about-wrapper">
           <div className="about-image">
             <img src={aboutImage || "/placeholder.svg"} alt="About Us" />
@@ -50,7 +49,7 @@ const About = () => {
           
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   )
 }
