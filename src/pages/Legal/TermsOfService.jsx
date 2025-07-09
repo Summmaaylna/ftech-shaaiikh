@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
 import PageWrapper from '../../components/PageWrapper/PageWrapper';
 import { Icon } from '../../components/Icons/IconSystem';
 import '../../styles/pages/Legal/LegalPages.scss';
@@ -394,7 +395,7 @@ const TermsOfService = () => {
       description="Terms and conditions for using FTEB Technology's IT services and solutions"
     >
       <div className="legal-page">
-        <div className="container">
+        <Container>
           
           {/* Introduction */}
           <div className="legal-intro">
@@ -496,7 +497,7 @@ const TermsOfService = () => {
             </div>
           </div>
 
-        </div>
+        </Container>
       </div>
     </PageWrapper>
   );

@@ -2,6 +2,7 @@
 
 import { Icon } from '../Icons/IconSystem'
 import "../../styles/components/Contact/Contact.scss"
+import { Container } from 'react-bootstrap';
 
 const Contact = () => {
   const contactInfo = [
@@ -25,7 +26,7 @@ const Contact = () => {
 
   return (
     <section className="contact section bg-light">
-      <div className="container">
+      <Container>
         <div className="title-contact">
           <h6>CONTACT US</h6>
           <h2>Get in Touch</h2>
@@ -70,7 +71,7 @@ const Contact = () => {
           </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   )
 }

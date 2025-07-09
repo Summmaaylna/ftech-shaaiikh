@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Container } from 'react-bootstrap';
 import { Icon } from '../Icons/IconSystem';
 import '../../styles/components/Counter/Counter.scss';
 
@@ -99,7 +100,7 @@ const Counter = () => {
 
   return (
     <section className="counter-section section" ref={sectionRef}>
-      <div className="container">
+      <Container>
         <div className="section-titles">
           <h6 className="counter-subtitle">OUR ACHIEVEMENTS</h6>
           <h2 className="counter-title">Numbers That Speak Our Success</h2>
@@ -145,7 +146,7 @@ const Counter = () => {
           <div className="bg-circle bg-circle-2"></div>
           <div className="bg-pattern"></div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

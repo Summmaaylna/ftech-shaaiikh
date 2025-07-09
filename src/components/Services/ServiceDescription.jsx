@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
 import '../../styles/components/Services/Services.scss';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -196,10 +197,10 @@ const ServiceDescription = () => {
         </Swiper>
       </section>
 
-      <div className="container services-grid-section">
-        <div className="row">
+      <Container className="services-grid-section">
+        <Row>
           {services.map((service) => (
-            <div key={service.id} className="col-md-6 col-sm-6 col-lg-4 mb-4 d-flex">
+            <Col key={service.id} md={6} sm={6} lg={4} className="mb-4 d-flex">
               <div 
                 className="service-card-modern d-flex flex-column"
                 onClick={() => handleServiceClick(service.path)}
@@ -225,10 +226,10 @@ const ServiceDescription = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </Col>
           ))}
-        </div>
-      </div>
+        </Row>
+      </Container>
 
       <div className="services-cta-section">
         <div className="cta-content">

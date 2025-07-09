@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Icon } from '../Icons/IconSystem';
 import '../../styles/components/ServicePageTemplate/ServicePageTemplate.scss';
 import azureLogo from '../../assets/images/ProductLogos/azure.png';
@@ -135,7 +136,7 @@ const ServicePageTemplate = ({ data }) => {
 
       {/* Main Content Section */}
       <section className="main-content">
-        <div className="container">
+        <Container>
           <div className="">
             <div className="content-left">
               <div className="descriptions">
@@ -161,12 +162,12 @@ const ServicePageTemplate = ({ data }) => {
 
             
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Services Grid */}
       <section className="services-grid-section">
-        <div className="container services-grid-container">
+        <Container className="services-grid-container">
           <div className="section-header">
             <h2>Our {data.title} Offerings</h2>
             <p>Comprehensive solutions tailored to your business needs</p>
@@ -195,12 +196,12 @@ const ServicePageTemplate = ({ data }) => {
               </div>
             ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Benefits Section */}
       <section className="benefits-section">
-        <div className="container">
+        <Container>
           <div className="section-header">
             <h2>Why Choose Our {data.title}?</h2>
             <p>Key benefits that set us apart from the competition</p>
@@ -222,7 +223,7 @@ const ServicePageTemplate = ({ data }) => {
               </div>
             ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Process Section */}
@@ -232,7 +233,7 @@ const ServicePageTemplate = ({ data }) => {
           <p>A proven methodology for successful project delivery</p>
         </div>
         
-        <div className="container d-flex flex-row align-items-center">
+        <Container className="d-flex flex-row align-items-center">
           <div className="process-timeline">
             {data.process.map((step, index) => (
               <div key={index} className="process-step">
@@ -254,12 +255,12 @@ const ServicePageTemplate = ({ data }) => {
               </button>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Technologies Section */}
       <section className="technologies-section">
-        <div className="container">
+        <Container>
           <div className="section-header">
             <h2>Certified Team</h2>
             <p>Our team holds multiple certifications including Solutions Architect, DevOps Engineer, and Security Engineer.</p>
@@ -291,12 +292,12 @@ const ServicePageTemplate = ({ data }) => {
               </tbody>
             </table>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* CTA Section */}
       <section className="service-cta-section">
-        <div className="container">
+        <Container>
           <div className="cta-content">
             <h2>Ready to Get Started?</h2>
             <p>Let's discuss how our {data.title.toLowerCase()} can transform your business</p>
@@ -323,7 +324,7 @@ const ServicePageTemplate = ({ data }) => {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
     </div>
   );
