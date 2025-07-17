@@ -24,6 +24,7 @@ import PrivacyPolicy from "./pages/Legal/PrivacyPolicy"
 import TermsOfService from "./pages/Legal/TermsOfService"
 import CookiesPolicy from "./pages/Legal/CookiesPolicy"
 import { routes } from './routes.js'
+
 function ScrollAnimationHandler() {
   const location = useLocation();
 
@@ -37,8 +38,6 @@ function ScrollAnimationHandler() {
       }, 100);
     }
   }, [location.pathname]); // Only trigger on pathname change
-      window.scrollAnimationObserver.refresh();
-    }
 
   return null;
 }
