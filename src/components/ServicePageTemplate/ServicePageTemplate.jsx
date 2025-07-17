@@ -71,20 +71,20 @@ const ServicePageTemplate = ({ data }) => {
   return (
     <div className="service-page">
       {/* Hero Section */}
-      <section className="service-hero" style={{ background: data.heroGradient }}>
+      <section className="service-hero scroll-animate" data-animation="fade-in" style={{ background: data.heroGradient }}>
         <div className="service-hero-content">
-          <button className="btn" onClick={handleBackClick}>
+          <button className="btn scroll-animate" data-animation="slide-right" onClick={handleBackClick}>
             <Icon name="ArrowLeft" size={16} />
             Back to Services
           </button>
           
           <div className="hero-main">
-            <div className="hero-text">
+            <div className="hero-text scroll-animate" data-animation="slide-up">
               <h1 className="service-hero-title">{data.title}</h1>
               <h2 className="service-hero-subtitle">{data.subtitle}</h2>
               <p className="service-hero-description">{data.description}</p>
               
-              <div className="hero-actions">
+              <div className="hero-actions scroll-animate" data-animation="fade-in" data-delay="200">
                 <button className="btn primary" onClick={handleContactClick}>
                   Get Started
                 </button>
@@ -95,7 +95,7 @@ const ServicePageTemplate = ({ data }) => {
               </div>
             </div>
             
-            <div className="hero-logo-section">
+            <div className="hero-logo-section scroll-animate" data-animation="zoom-in" data-delay="300">
               {isMultiCloudPage ? (
                 <div className="multi-cloud-logos">
                   <div className="cloud-logo-item azure-logo">
@@ -122,7 +122,7 @@ const ServicePageTemplate = ({ data }) => {
           </div>
           
           {/* Stats */}
-          <div className="hero-stats">
+          <div className="hero-stats scroll-animate" data-animation="slide-up" data-delay="400">
             {data.stats.map((stat, index) => (
               <div key={index} className="stat-item">
                 <span className="stat-number">{stat.number}</span>
@@ -134,7 +134,7 @@ const ServicePageTemplate = ({ data }) => {
       </section>
 
       {/* Main Content Section */}
-      <section className="main-content">
+      <section className="main-content scroll-animate" data-animation="fade-in" data-delay="200">
         <div className="container">
           <div className="">
             <div className="content-left">
@@ -165,7 +165,7 @@ const ServicePageTemplate = ({ data }) => {
       </section>
 
       {/* Services Grid */}
-      <section className="services-grid-section">
+      <section className="services-grid-section scroll-animate" data-animation="slide-up" data-delay="300">
         <div className="container services-grid-container">
           <div className="section-header">
             <h2>Our {data.title} Offerings</h2>
@@ -174,7 +174,7 @@ const ServicePageTemplate = ({ data }) => {
           
           <div className="services-grid">
             {data.services.map((service, index) => (
-              <div key={index} className="service-card">
+              <div key={index} className="service-card scroll-animate" data-animation="zoom-in" data-delay={`${index * 100}`}>
                 <div className="service-card-header">
                   <div className="icon-container icon-container-md icon-container-primary">
                     <Icon name="Settings" size={24} />
@@ -199,7 +199,7 @@ const ServicePageTemplate = ({ data }) => {
       </section>
 
       {/* Benefits Section */}
-      <section className="benefits-section">
+      <section className="benefits-section scroll-animate" data-animation="fade-in" data-delay="400">
         <div className="container">
           <div className="section-header">
             <h2>Why Choose Our {data.title}?</h2>
@@ -208,7 +208,7 @@ const ServicePageTemplate = ({ data }) => {
           
           <div className="benefits-grid">
             {data.benefits.map((benefit, index) => (
-              <div key={index} className="benefit-card">
+              <div key={index} className="benefit-card scroll-animate" data-animation="slide-up" data-delay={`${index * 100}`}>
                 <div className="icon-container icon-container-xl icon-container-primary">
                   <Icon name={
                     index === 0 ? "Analytics" :
@@ -226,7 +226,7 @@ const ServicePageTemplate = ({ data }) => {
       </section>
 
       {/* Process Section */}
-      <section className="process-section">
+      <section className="process-section scroll-animate" data-animation="fade-in" data-delay="500">
         <div className="section-header">
           <h2>Our Implementation Process</h2>
           <p>A proven methodology for successful project delivery</p>
@@ -235,7 +235,7 @@ const ServicePageTemplate = ({ data }) => {
         <div className="container d-flex flex-row align-items-center">
           <div className="process-timeline">
             {data.process.map((step, index) => (
-              <div key={index} className="process-step">
+              <div key={index} className="process-step scroll-animate" data-animation="slide-up" data-delay={`${index * 100}`}>
                 <div className="step-number">{step.step}</div>
                 <div className="step-content">
                   <h3>{step.title}</h3>
@@ -245,8 +245,8 @@ const ServicePageTemplate = ({ data }) => {
             ))}
           </div>
           <div className="sidebar-section">
-            <div className="contact-card">
-              <h4>Free Assessment worth $ 1000 same content</h4>
+            <div className="contact-card scroll-animate" data-animation="fade-in" data-delay="600">
+              <h4>Free Assessment worth <span style={{fontSize: '1.5rem',color: '#0ed277'}}>$1000/-</span></h4>
               <p>Get a comprehensive analysis of your current infrastructure and migration roadmap.</p>
               <button className="btn" onClick={handleContactClick}>
                 <Icon name="Phone" size={16} />
@@ -258,7 +258,7 @@ const ServicePageTemplate = ({ data }) => {
       </section>
 
       {/* Technologies Section */}
-      <section className="technologies-section">
+      <section className="technologies-section scroll-animate" data-animation="fade-in" data-delay="300">
         <div className="container">
           <div className="section-header">
             <h2>Certified Team</h2>
@@ -266,11 +266,12 @@ const ServicePageTemplate = ({ data }) => {
           </div>
           
           <div className="certifications-table-wrapper">
-            <table className="certifications-table">
+            <table className="certifications-table scroll-animate" data-animation="slide-up" data-delay="300">
               <thead>
                 <tr>
                   <th>Competency</th>
-                  <th>Certification (Exam Code)</th>
+                  <th>Certification</th>
+                  <th>Code</th>
                   <th># of Certified Professionals</th>
                 </tr>
               </thead>
@@ -279,12 +280,13 @@ const ServicePageTemplate = ({ data }) => {
                   group.certifications.map((cert, cidx) => (
                     <tr key={group.competency + cert.code}>
                       {cidx === 0 && (
-                        <td rowSpan={group.certifications.length} className="competency-cell">
+                        <td rowSpan={group.certifications.length} className="competency-cell scroll-animate" data-animation="fade-in" data-delay={`${cidx * 100}`}>
                           {group.competency}
                         </td>
                       )}
-                      <td>{cert.name} <span className="exam-code">({cert.code})</span></td>
-                      <td>{cert.count}</td>
+                      <td className="scroll-animate" data-animation="fade-in" data-delay={`${cidx * 100}`}>{cert.name}</td>
+                      <td className="scroll-animate" data-animation="fade-in" data-delay={`${cidx * 100}`}>{cert.code}</td>
+                      <td className="scroll-animate" data-animation="fade-in" data-delay={`${cidx * 100}`}>{cert.count}</td>
                     </tr>
                   ))
                 )}
@@ -295,7 +297,7 @@ const ServicePageTemplate = ({ data }) => {
       </section>
 
       {/* CTA Section */}
-      <section className="service-cta-section">
+      <section className="service-cta-section scroll-animate" data-animation="fade-in" data-delay="900">
         <div className="container">
           <div className="cta-content">
             <h2>Ready to Get Started?</h2>

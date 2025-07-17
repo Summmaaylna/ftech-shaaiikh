@@ -75,8 +75,8 @@ const ITServices = () => {
 
       <ServiceDescription />
       
-      <div className="itservices-section">
-        <div className="section-title">
+      <div className="itservices-section scroll-animate" data-animation="fade-in">
+        <div className="section-title scroll-animate" data-animation="slide-up">
           <span className="subtitle">OUR SERVICES</span>
           <h2>
             Transforming Businesses Through<br />
@@ -112,7 +112,8 @@ const ITServices = () => {
           {services.map((service, idx) => (
             <SwiperSlide
               key={idx}
-              className={`service-slide${isVisible ? " visible" : ""}`}
+              className={`service-slide${isVisible ? " visible" : ""} scroll-animate`}
+              data-animation="zoom-in"
               style={{
                 transitionDelay: `${idx * 0.1}s`,
               }}
@@ -132,7 +133,7 @@ const ITServices = () => {
         </Swiper>
       </div>
 
-      <div className="contact-info-section">
+      <div className="contact-info-section scroll-animate" data-animation="slide-up">
         <div className="contact-info-container">
           <div className="contact-info-image">
             <img src={men} alt="IT Support Representative" loading="lazy" />

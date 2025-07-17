@@ -15,10 +15,20 @@ function App() {
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
   useEffect(() => {
-    // Trigger animation after component mounts
-    setTimeout(() => {
+    const firstAnimationDone = localStorage.getItem("firstAnimationDone");
+
+    if (!firstAnimationDone) {
+      // Trigger animation after component mounts
+      const timer = setTimeout(() => {
+        setImagesLoaded(true);
+        localStorage.setItem("firstAnimationDone", "true");
+      }, 300);
+
+      return () => clearTimeout(timer);
+    } else {
+      // Skip animation, set loaded immediately
       setImagesLoaded(true);
-    }, 300);
+    }
   }, []);
 
   return (

@@ -87,18 +87,6 @@
 }
 
 /* Base Typography */
-* {
-  font-family: var(--font-primary) !important;
-}
-
-body {
-  font-family: var(--font-body) !important;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-normal);
-  line-height: var(--line-height-normal);
-  color: var(--color-text);
-  -webkit-font-smoothing: antialiased;
-}
 
 /* Global Icon Styles */
 .project-icon {

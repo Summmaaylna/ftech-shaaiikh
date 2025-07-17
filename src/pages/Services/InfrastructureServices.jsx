@@ -1,13 +1,13 @@
 import React from 'react';
 import ServicePageTemplate from '../../components/ServicePageTemplate/ServicePageTemplate';
-import microsoftLogo from '../../assets/images/ProductLogos/Microsoft-Logo.png';
+import ITinfrastructureLogo from '../../assets/images/ProductLogos/it-infrastructure.png';
 
 const InfrastructureServices = () => {
   const serviceData = {
     title: "IT Infrastructure Services",
     subtitle: "Building Robust, Scalable IT Foundations",
     description: "Comprehensive IT infrastructure planning, implementation, and management services to ensure optimal performance, reliability, and business continuity for your organization.",
-    logo: microsoftLogo,
+    logo: ITinfrastructureLogo,
     heroGradient: "linear-gradient(135deg, #2c3e50 0%, #34495e 100%)",
     
     stats: [

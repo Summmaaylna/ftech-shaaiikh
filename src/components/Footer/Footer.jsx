@@ -3,25 +3,24 @@ import "../../styles/components/Footer/Footer.scss"
 import footerLogo from '../../assets/images/FTebtech-logo/FTEB-logo-white.png';
 import { Icon } from '../Icons/IconSystem'
 import DinoGame from '../DinoGame/DinoGame';
+import FlappyBird from '../FlappyBird/FlappyBird';
+import SpaceInvaders from '../SpaceInvaders/SpaceInvaders';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const [showDinoGame, setShowDinoGame] = useState(false);
+  const [showFlappyBird, setShowFlappyBird] = useState(false);
+  const [showSpaceInvaders, setShowSpaceInvaders] = useState(false);
   const [currentYear] = useState(new Date().getFullYear());
 
   const quickLinks = [
-    { name: 'About Us', path: '/about' },
     { name: 'Services', path: '/servicess' },
-    { name: 'Case Studies', path: '/case-studies' },
     { name: 'Contact', path: '/contact' },
-    { name: 'Blog', path: '/blog' }
   ];
 
   const services = [
     { name: 'Cloud Solutions', path: '/services/cloud-services' },
-    { name: 'Microsoft 365', path: '/services/microsoft365' },
-    { name: 'Custom Development', path: '/services/development' },
     { name: 'IT Infrastructure', path: '/services/infrastructure' },
-    { name: 'Cybersecurity', path: '/services/security' }
   ];
 
   const socialLinks = [
@@ -65,6 +64,14 @@ const Footer = () => {
     setShowDinoGame(!showDinoGame);
   };
 
+  const toggleFlappyBird = () => {
+    setShowFlappyBird(!showFlappyBird);
+  };
+
+  const toggleSpaceInvaders = () => {
+    setShowSpaceInvaders(!showSpaceInvaders);
+  };
+
   return (
     <>
       {/* Dino Game Modal */}
@@ -86,6 +93,43 @@ const Footer = () => {
         </div>
       )}
 
+      {/* Flappy Bird Game Modal */}
+      {showFlappyBird && (
+        <div className="dino-game-overlay">
+          <div className="dino-game-container">
+            <div className="dino-game-header">
+              <h3>Flappy Bird Game</h3>
+              <button 
+                className="close-game-btn"
+                onClick={toggleFlappyBird}
+                aria-label="Close game"
+              >
+                <Icon name="Close" size={24} />
+              </button>
+            </div>
+            <FlappyBird />
+          </div>
+        </div>
+      )}
+
+      {/* Space Invaders Game Modal */}
+      {showSpaceInvaders && (
+        <div className="dino-game-overlay">
+          <div className="dino-game-container">
+            <div className="dino-game-header">
+              <h3>Space Invaders Game</h3>
+              <button 
+                className="close-game-btn"
+                onClick={toggleSpaceInvaders}
+                aria-label="Close game"
+              >
+                <Icon name="Close" size={24} />
+              </button>
+            </div>
+            <SpaceInvaders />
+          </div>
+        </div>
+      )}
       <footer className="modern-footer">
         {/* Main Footer Content */}
         <div className="footer-main">
@@ -95,7 +139,9 @@ const Footer = () => {
               {/* Company Info */}
               <div className="footer-section company-section">
                 <div className="footer-logo">
-                 <img src={footerLogo} width={150} alt="ftechtech" />
+                <Link to="/">
+                        <img src={footerLogo} alt="FTEBTECH" />
+                      </Link>
                   <span className="logo-tagline">Technology Solutions</span>
                 </div>
                 <p className="company-description">
@@ -122,6 +168,18 @@ const Footer = () => {
 
               {/* Quick Links */}
               <div className="footer-section">
+                
+                 <h4>Our Services</h4>
+                <ul className="footer-links">
+                  {services.map((service, index) => (
+                    <li key={index}>
+                      <a href={service.path}>
+                        <Icon name="ArrowRight" size={12} />
+                        {service.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
                 <h4>Quick Links</h4>
                 <ul className="footer-links">
                   {quickLinks.map((link, index) => (
@@ -134,63 +192,34 @@ const Footer = () => {
                   ))}
                 </ul>
               </div>
-
-              {/* Services */}
-              <div className="footer-section">
-                <h4>Our Services</h4>
-                <ul className="footer-links">
-                  {services.map((service, index) => (
-                    <li key={index}>
-                      <a href={service.path}>
-                        <Icon name="ArrowRight" size={12} />
-                        {service.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <div className="easter-egg">
+                <button 
+                  className="dino-game-trigger btn"
+                  onClick={toggleDinoGame}
+                  title="Play Chrome Dino Game"
+                  aria-label="Play Chrome Dino Game"
+                >
+                  🦕 Play Game
+                </button>
+                <button 
+                  className="dino-game-trigger btn" 
+                  onClick={toggleFlappyBird}
+                  title="Play Flappy Bird Game"
+                  aria-label="Play Flappy Bird Game"
+                >
+                  🐦 Flappy Bird
+                </button>
+                <button 
+                  className="dino-game-trigger btn"
+                  onClick={toggleSpaceInvaders}
+                  title="Play Space Invaders Game"
+                  aria-label="Play Space Invaders Game"
+                >
+                  👾 Space Invaders
+                </button>
               </div>
-
-              {/* Newsletter & Social */}
-              <div className="footer-section newsletter-section">
-                <h4>Stay Connected</h4>
-                <p>Subscribe to our newsletter for the latest updates and insights.</p>
-                
-                <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
-                  <div className="input-group">
-                    <input 
-                      type="email" 
-                      name="email"
-                      placeholder="Enter your email" 
-                      required 
-                    />
-                    <button type="submit" aria-label="Subscribe">
-                      <Icon name="ArrowRight" size={18} />
-                    </button>
-                  </div>
-                </form>
-
-                {/* Social Links */}
-                <div className="social-section">
-                  <h5>Follow Us</h5>
-                  <div className="social-links">
-                    {socialLinks.map((social, index) => (
-                      <a
-                        key={index}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="social-link"
-                        style={{ '--social-color': social.color }}
-                        aria-label={`Follow us on ${social.name}`}
-                      >
-                        <Icon name={social.icon} size={20} />
-                      </a>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
-          </div>
         </div>
 
         {/* Footer Bottom */}
@@ -208,16 +237,7 @@ const Footer = () => {
               </div>
 
               {/* Fun Easter Egg - Dino Game Button */}
-              <div className="easter-egg">
-                <button 
-                  className="dino-game-trigger"
-                  onClick={toggleDinoGame}
-                  title="Play Chrome Dino Game"
-                  aria-label="Play Chrome Dino Game"
-                >
-                  🦕 Play Game
-                </button>
-              </div>
+             
             </div>
           </div>
         </div>

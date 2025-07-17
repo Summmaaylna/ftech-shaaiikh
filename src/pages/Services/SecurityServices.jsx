@@ -1,13 +1,13 @@
 import React from 'react';
 import ServicePageTemplate from '../../components/ServicePageTemplate/ServicePageTemplate';
-import microsoftLogo from '../../assets/images/ProductLogos/Microsoft-Logo.png';
+import cyberLogo from '../../assets/images/ProductLogos//cyber.png';
 
 const SecurityServices = () => {
   const serviceData = {
     title: "Cybersecurity Solutions",
     subtitle: "Protecting Your Digital Assets with Advanced Security",
     description: "Comprehensive cybersecurity services to protect your organization from evolving threats with advanced security strategies, monitoring, and compliance management.",
-    logo: microsoftLogo,
+    logo: cyberLogo,
     heroGradient: "linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)",
     
     stats: [
