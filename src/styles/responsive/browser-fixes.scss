@@ -1,11 +1,6 @@
 /* Browser-Specific Fixes and Cross-Browser Compatibility */
 
 /* Reset and Normalize */
-* {
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
 /* Safari Specific Fixes */
 @supports (-webkit-appearance: none) {

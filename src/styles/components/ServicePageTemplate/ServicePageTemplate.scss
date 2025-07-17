@@ -132,7 +132,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    order: -1;
+    flex-wrap: wrap;
+    flex-direction: row;
 
     @media (min-width: 992px) {
       order: 0;
@@ -166,22 +167,16 @@
 
     /* Multi-Cloud Logos */
     .multi-cloud-logos {
-      display: flex;
-      flex-direction: column;
-      gap: clamp(15px, 3vw, 25px);
-      align-items: center;
-      animation: floatLogos 8s ease-in-out infinite;
+      display: flex
+;
+    flex-direction: row;
+    gap: clamp(15px, 3vw, 25px);
+    align-items: center;
+    animation: floatLogos 8s ease-in-out infinite;
+    flex-wrap: wrap;
+    justify-content: center;
 
-      @media (min-width: 576px) {
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      @media (min-width: 992px) {
-        flex-direction: column;
-        gap: clamp(20px, 4vw, 30px);
-      }
+ 
 
       .cloud-logo-item {
         display: flex;
@@ -613,6 +608,9 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       border: 1px solid #e5e7eb;
       height: fit-content;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      animation: pulses 2s infinite;
+
 
       @media (min-width: 992px) {
         position: sticky;
@@ -660,6 +658,17 @@
           }
         }
       }
+    }
+  }
+
+  @keyframes pulses {
+    0%, 100% {
+      transform: scale(1);
+          box-shadow: 0 0 0 0 rgb(0 101 238 / 25%);
+    }
+    50% {
+      transform: scale(1.02);
+      box-shadow: 0 0 0 10px rgb(9 97 218 / 4%);
     }
   }
 

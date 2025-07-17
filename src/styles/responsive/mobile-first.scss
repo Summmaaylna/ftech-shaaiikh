@@ -11,23 +11,6 @@
 /* Touch-Friendly Interactions */
 
 /* Form Elements */
-input, 
-textarea, 
-select {
-  width: 100%;
-  border: 2px solid #e5e7eb;
-  border-radius: var(--border-radius-sm);
-  font-size: var(--text-base);
-  transition: var(--transition-normal);
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 0 3px rgba(0, 99, 218, 0.1);
-}
 
 /* Navigation */
 .mobile-nav {

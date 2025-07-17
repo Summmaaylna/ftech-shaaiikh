@@ -1,14 +1,14 @@
 "use client"
 
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import "./App.css"
 import Header from "./components/Header/Header"
 import Footer from "./components/Footer/Footer"
 import CookieConsent from "./components/CookieConsent/CookieConsent"
 import Resolution from "./pages/Resolution/Resolution"
 import Servicess from "./pages/Servicess/Servicess"
-import Contact from "./pages/Contact/Contact"
+import Contact from "./pages/Contactpage/Contactpage.jsx"
 import CloudServices from "./pages/Services/CloudServices"
 import AzureServices from "./pages/Services/AzureServices"
 import AWSServices from "./pages/Services/AWSServices"
@@ -24,13 +24,14 @@ import PrivacyPolicy from "./pages/Legal/PrivacyPolicy"
 import TermsOfService from "./pages/Legal/TermsOfService"
 import CookiesPolicy from "./pages/Legal/CookiesPolicy"
 import { routes } from './routes.js'
-
-function ScrollToTop() {
-  const { pathname } = useLocation();
+function ScrollAnimationHandler() {
+  const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (window.scrollAnimationObserver && typeof window.scrollAnimationObserver.refresh === 'function') {
+      window.scrollAnimationObserver.refresh();
+    }
+  }, [location]);
 
   return null;
 }
@@ -38,9 +39,9 @@ function ScrollToTop() {
 function App() {
   return (
     <Router>
-      <ScrollToTop />
       <div className="app">
         <Header />
+        <ScrollAnimationHandler />
         <Routes>
           <Route path={routes.home.path} element={<Resolution />} />
           <Route path={routes.servicess.path} element={<Servicess />} />
