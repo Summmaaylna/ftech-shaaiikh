@@ -8,11 +8,11 @@ class ScrollAnimationObserver {
     this.options = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px',
-      once: false, // Changed to false to allow re-animation
+      once: false, // Allow re-animation
       selector: '.scroll-animate',
       animatedClass: 'animated',
       debug: false,
-      resetOnNavigation: true, // New option to reset animations on navigation
+      resetOnNavigation: true,
       ...options
     };
 
@@ -81,16 +81,17 @@ class ScrollAnimationObserver {
     window.addEventListener('popstate', this.handleNavigation);
     
     // Listen for pushstate/replacestate (programmatic navigation)
-    const originalPushState = history.pushState;
-    const originalReplaceState = history.replaceState;
+    // Fix ESLint error by using window.history instead of global history
+    const originalPushState = window.history.pushState.bind(window.history);
+    const originalReplaceState = window.history.replaceState.bind(window.history);
     
-    history.pushState = (...args) => {
-      originalPushState.apply(history, args);
+    window.history.pushState = (...args) => {
+      originalPushState(...args);
       setTimeout(this.handleNavigation, 0);
     };
     
-    history.replaceState = (...args) => {
-      originalReplaceState.apply(history, args);
+    window.history.replaceState = (...args) => {
+      originalReplaceState(...args);
       setTimeout(this.handleNavigation, 0);
     };
 
@@ -129,6 +130,8 @@ class ScrollAnimationObserver {
     const elements = document.querySelectorAll(this.options.selector);
     elements.forEach(element => {
       element.classList.remove(this.options.animatedClass);
+      // Reset visibility for elements that were hidden
+      element.style.visibility = '';
     });
     
     // Clear the animated elements set
@@ -146,18 +149,23 @@ class ScrollAnimationObserver {
     entries.forEach(entry => {
       const element = entry.target;
       
-      if (entry.isIntersecting && !this.animatedElements.has(element)) {
-        this.animateElement(element);
-        
-        // Only add to animated set if once is true
-        if (this.options.once) {
-          this.observer.unobserve(element);
-          this.animatedElements.add(element);
+      if (entry.isIntersecting) {
+        // Only animate if not already animated or if we allow re-animation
+        if (!this.animatedElements.has(element) || !this.options.once) {
+          this.animateElement(element);
+          
+          // Only add to animated set and unobserve if once is true
+          if (this.options.once) {
+            this.observer.unobserve(element);
+            this.animatedElements.add(element);
+          }
         }
-      } else if (!entry.isIntersecting && !this.options.once) {
+      } else if (!this.options.once) {
         // Remove animation when element leaves viewport (for re-animation)
-        element.classList.remove(this.options.animatedClass);
-        this.animatedElements.delete(element);
+        if (this.animatedElements.has(element)) {
+          element.classList.remove(this.options.animatedClass);
+          this.animatedElements.delete(element);
+        }
       }
     });
   }
@@ -190,7 +198,7 @@ class ScrollAnimationObserver {
     const elements = document.querySelectorAll(this.options.selector);
     
     elements.forEach(element => {
-      // Skip if already being observed
+      // Skip if already being observed and once is true
       if (this.animatedElements.has(element) && this.options.once) {
         return;
       }
@@ -199,9 +207,12 @@ class ScrollAnimationObserver {
       const rect = element.getBoundingClientRect();
       const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
       
-      // Only auto-animate if element is significantly visible
-      if (isInViewport && rect.top < window.innerHeight * 0.3) {
-        this.animateElement(element);
+      // For elements that are significantly visible on page load, animate immediately
+      if (isInViewport && rect.top < window.innerHeight * 0.8) {
+        // Small delay to ensure CSS is loaded
+        setTimeout(() => {
+          this.animateElement(element);
+        }, 50);
       } else {
         // Element is not visible, observe it
         this.observer.observe(element);

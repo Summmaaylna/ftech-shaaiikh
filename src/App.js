@@ -29,14 +29,21 @@ function ScrollAnimationHandler() {
   const location = useLocation();
 
   useEffect(() => {
-    // Trigger scroll animation refresh on route change
-    if (window.scrollAnimationObserver && typeof window.scrollAnimationObserver.refresh === 'function') {
-      // Reset animations and refresh observer
-      window.scrollAnimationObserver.resetAnimations();
-      setTimeout(() => {
-        window.scrollAnimationObserver.refresh();
-      }, 100);
-    }
+    // Enhanced scroll animation handling on route change
+    const handleRouteChange = () => {
+      if (window.scrollAnimationObserver && typeof window.scrollAnimationObserver.refresh === 'function') {
+        // Reset animations and refresh observer
+        window.scrollAnimationObserver.resetAnimations();
+        setTimeout(() => {
+          window.scrollAnimationObserver.refresh();
+        }, 150);
+      }
+    };
+
+    // Small delay to ensure new content is rendered
+    const timeoutId = setTimeout(handleRouteChange, 100);
+    
+    return () => clearTimeout(timeoutId);
   }, [location.pathname]); // Only trigger on pathname change
 
   return null;
