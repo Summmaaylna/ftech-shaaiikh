@@ -28,10 +28,17 @@ function ScrollAnimationHandler() {
   const location = useLocation();
 
   useEffect(() => {
+    // Trigger scroll animation refresh on route change
     if (window.scrollAnimationObserver && typeof window.scrollAnimationObserver.refresh === 'function') {
+      // Reset animations and refresh observer
+      window.scrollAnimationObserver.resetAnimations();
+      setTimeout(() => {
+        window.scrollAnimationObserver.refresh();
+      }, 100);
+    }
+  }, [location.pathname]); // Only trigger on pathname change
       window.scrollAnimationObserver.refresh();
     }
-  }, [location]);
 
   return null;
 }

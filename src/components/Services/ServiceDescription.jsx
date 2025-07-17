@@ -119,7 +119,13 @@ const ServiceDescription = () => {
   ];
 
   const handleServiceClick = (path) => {
-    navigate(path);
+    // Smooth scroll to top before navigation
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Small delay to allow scroll to complete before navigation
+    setTimeout(() => {
+      navigate(path);
+    }, 300);
   };
 
   return (

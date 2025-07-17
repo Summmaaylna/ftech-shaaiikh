@@ -1,0 +1,10 @@
+@@ .. @@
+  // Close mobile menu when clicking on a link
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false)
++    
++    // Smooth scroll to top when navigating
++    if (window.location.pathname !== '/') {
++      window.scrollTo({ top: 0, behavior: 'smooth' });
++    }
+  }

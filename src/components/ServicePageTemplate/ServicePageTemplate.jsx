@@ -10,7 +10,13 @@ const ServicePageTemplate = ({ data }) => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate('/servicess');
+    // Smooth scroll to top before navigation
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Small delay to allow scroll to complete before navigation
+    setTimeout(() => {
+      navigate('/servicess');
+    }, 300);
   };
 
   const handleContactClick = () => {

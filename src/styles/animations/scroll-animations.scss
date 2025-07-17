@@ -21,12 +21,15 @@
   /* Prevent animation on page load */
   &:not(.animated) {
     animation-fill-mode: both;
+    /* Ensure elements are hidden until animated */
+    visibility: hidden;
   }
 
   /* When animated class is added */
   &.animated {
     opacity: 1;
     transform: none !important;
+    visibility: visible;
   }
 }
 

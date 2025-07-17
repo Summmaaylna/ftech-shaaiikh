@@ -1,30 +1,33 @@
 /**
- * Scroll Animation System
- * Lightweight, pure JavaScript scroll animation observer
- * Triggers animations only once when elements come into view from bottom
+ * Enhanced Scroll Animation System
+ * Fixes issues with navigation and re-triggering animations
  */
 
 class ScrollAnimationObserver {
   constructor(options = {}) {
     this.options = {
-      threshold: 0.1, // Percentage of element that needs to be visible
-      rootMargin: '0px 0px -50px 0px', // Trigger 50px before element enters viewport
-      once: true, // Only animate once
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px',
+      once: false, // Changed to false to allow re-animation
       selector: '.scroll-animate',
       animatedClass: 'animated',
       debug: false,
+      resetOnNavigation: true, // New option to reset animations on navigation
       ...options
     };
 
     this.observer = null;
     this.animatedElements = new Set();
     this.isInitialized = false;
+    this.currentPath = window.location.pathname;
 
     // Bind methods
     this.handleIntersection = this.handleIntersection.bind(this);
     this.init = this.init.bind(this);
     this.destroy = this.destroy.bind(this);
     this.refresh = this.refresh.bind(this);
+    this.resetAnimations = this.resetAnimations.bind(this);
+    this.handleNavigation = this.handleNavigation.bind(this);
   }
 
   /**
@@ -32,7 +35,7 @@ class ScrollAnimationObserver {
    */
   init() {
     if (this.isInitialized) {
-      console.warn('ScrollAnimationObserver is already initialized');
+      this.refresh();
       return;
     }
 
@@ -55,6 +58,9 @@ class ScrollAnimationObserver {
       rootMargin: this.options.rootMargin
     });
 
+    // Set up navigation listener
+    this.setupNavigationListener();
+
     // Observe all elements
     this.observeElements();
     this.isInitialized = true;
@@ -68,21 +74,90 @@ class ScrollAnimationObserver {
   }
 
   /**
+   * Set up navigation change detection
+   */
+  setupNavigationListener() {
+    // Listen for popstate (back/forward buttons)
+    window.addEventListener('popstate', this.handleNavigation);
+    
+    // Listen for pushstate/replacestate (programmatic navigation)
+    const originalPushState = history.pushState;
+    const originalReplaceState = history.replaceState;
+    
+    history.pushState = (...args) => {
+      originalPushState.apply(history, args);
+      setTimeout(this.handleNavigation, 0);
+    };
+    
+    history.replaceState = (...args) => {
+      originalReplaceState.apply(history, args);
+      setTimeout(this.handleNavigation, 0);
+    };
+
+    // Also listen for hash changes
+    window.addEventListener('hashchange', this.handleNavigation);
+  }
+
+  /**
+   * Handle navigation changes
+   */
+  handleNavigation() {
+    const newPath = window.location.pathname;
+    
+    if (newPath !== this.currentPath) {
+      this.currentPath = newPath;
+      
+      if (this.options.resetOnNavigation) {
+        // Small delay to ensure new content is rendered
+        setTimeout(() => {
+          this.resetAnimations();
+          this.refresh();
+        }, 100);
+      }
+      
+      if (this.options.debug) {
+        console.log('Navigation detected, resetting animations for:', newPath);
+      }
+    }
+  }
+
+  /**
+   * Reset all animations
+   */
+  resetAnimations() {
+    // Remove animated class from all elements
+    const elements = document.querySelectorAll(this.options.selector);
+    elements.forEach(element => {
+      element.classList.remove(this.options.animatedClass);
+    });
+    
+    // Clear the animated elements set
+    this.animatedElements.clear();
+    
+    if (this.options.debug) {
+      console.log('Animations reset');
+    }
+  }
+
+  /**
    * Handle intersection observer callback
    */
   handleIntersection(entries) {
     entries.forEach(entry => {
       const element = entry.target;
       
-      // Only trigger if element is intersecting and coming from bottom
       if (entry.isIntersecting && !this.animatedElements.has(element)) {
         this.animateElement(element);
         
-        // If once is true, stop observing this element
+        // Only add to animated set if once is true
         if (this.options.once) {
           this.observer.unobserve(element);
           this.animatedElements.add(element);
         }
+      } else if (!entry.isIntersecting && !this.options.once) {
+        // Remove animation when element leaves viewport (for re-animation)
+        element.classList.remove(this.options.animatedClass);
+        this.animatedElements.delete(element);
       }
     });
   }
@@ -93,6 +168,7 @@ class ScrollAnimationObserver {
   animateElement(element) {
     // Add animated class
     element.classList.add(this.options.animatedClass);
+    this.animatedElements.add(element);
     
     // Dispatch custom event
     element.dispatchEvent(new CustomEvent('scroll-animate', {
@@ -114,8 +190,8 @@ class ScrollAnimationObserver {
     const elements = document.querySelectorAll(this.options.selector);
     
     elements.forEach(element => {
-      // Skip if already animated
-      if (this.animatedElements.has(element)) {
+      // Skip if already being observed
+      if (this.animatedElements.has(element) && this.options.once) {
         return;
       }
 
@@ -123,10 +199,9 @@ class ScrollAnimationObserver {
       const rect = element.getBoundingClientRect();
       const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
       
-      if (isInViewport && rect.top < window.innerHeight * 0.8) {
-        // Element is already visible, animate immediately
+      // Only auto-animate if element is significantly visible
+      if (isInViewport && rect.top < window.innerHeight * 0.3) {
         this.animateElement(element);
-        this.animatedElements.add(element);
       } else {
         // Element is not visible, observe it
         this.observer.observe(element);
@@ -211,6 +286,10 @@ class ScrollAnimationObserver {
       this.observer = null;
     }
     
+    // Remove event listeners
+    window.removeEventListener('popstate', this.handleNavigation);
+    window.removeEventListener('hashchange', this.handleNavigation);
+    
     this.animatedElements.clear();
     this.isInitialized = false;
 
@@ -244,8 +323,17 @@ function initScrollAnimations(options = {}) {
     scrollAnimationObserver.destroy();
   }
 
-  // Create new observer
-  scrollAnimationObserver = new ScrollAnimationObserver(options);
+  // Create new observer with enhanced options
+  const defaultOptions = {
+    once: false, // Allow re-animation
+    resetOnNavigation: true, // Reset animations on navigation
+    debug: process.env.NODE_ENV === 'development'
+  };
+
+  scrollAnimationObserver = new ScrollAnimationObserver({
+    ...defaultOptions,
+    ...options
+  });
   
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {
@@ -264,15 +352,15 @@ export { ScrollAnimationObserver, initScrollAnimations };
 
 // Global initialization with default options
 if (typeof window !== 'undefined') {
-  // Auto-initialize with default options
+  // Auto-initialize with enhanced options
   const defaultObserver = initScrollAnimations({
-    debug: process.env.NODE_ENV === 'development'
+    debug: process.env.NODE_ENV === 'development',
+    once: false, // Allow re-animation
+    resetOnNavigation: true
   });
 
   // Make available globally for debugging
   window.scrollAnimationObserver = defaultObserver;
-
-
 
   // Refresh on window resize (for responsive changes)
   let resizeTimeout;
